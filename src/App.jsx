@@ -8,12 +8,12 @@ const App = () => {
   const result = useQuery({
     queryKey: ["anecdotes"],
     queryFn: () =>
-      axios.get("http://localhost:3001/anecdote").then((res) => res.data),
+      axios.get("http://localhost:3001/anecdotes").then((res) => res.data),
   });
 
-  // const handleVote = (anecdote) => {
-  //   console.log("vote");
-  // };
+  const handleVote = (anecdote) => {
+    console.log("vote");
+  };
 
   const anecdotes = result.data;
 
