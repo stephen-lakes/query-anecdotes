@@ -1,31 +1,6 @@
-import { useReducer } from "react";
-import PropTypes from "prop-types";
-
-export const Display = ({ counter }) => {
-  return <div>{counter}</div>;
-};
-
-Display.propTypes = {
-  counter: PropTypes.number.isRequired,
-};
-
-export const Button = ({ dispatch, type, label }) => {
-  return (
-    <button
-      onClick={() => {
-        dispatch({ type });
-      }}
-    >
-      {label}
-    </button>
-  );
-};
-
-Button.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-};
+import { useContext, useReducer } from "react";
+import { Button } from "./components/Button";
+import { Display } from "./components/Display";
 
 const counterReducer = (state, action) => {
   switch (action.type) {
@@ -45,7 +20,7 @@ const App = () => {
 
   return (
     <div>
-      <Display counter={counter} />
+      <Display />
       <Button dispatch={counterDispatch} type="INC" label="+" />
       <Button dispatch={counterDispatch} type="DEC" label="-" />
       <Button dispatch={counterDispatch} type="ZERO" label="0" />
