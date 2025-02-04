@@ -9,5 +9,7 @@ export const addNewAnecdote = (newAnecdote) => {
 };
 
 export const updateAnecdote = (updatedAnecdote) => {
-  axios.put(baseUrl, updatedAnecdote).then((res) => res.data);
+  axios
+    .put(`${baseUrl}/${updatedAnecdote.id}`, updatedAnecdote)
+    .then((res) => res.data);
 };
