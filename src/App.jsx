@@ -1,7 +1,12 @@
 import { useReducer } from "react";
+import PropTypes from "prop-types";
 
 export const Display = ({ counter }) => {
   return <div>{counter}</div>;
+};
+
+Display.propTypes = {
+  counter: PropTypes.number.isRequired,
 };
 
 export const Button = ({ dispatch, type, label }) => {
@@ -14,6 +19,12 @@ export const Button = ({ dispatch, type, label }) => {
       {label}
     </button>
   );
+};
+
+Button.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 const counterReducer = (state, action) => {
