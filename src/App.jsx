@@ -8,7 +8,12 @@ import { getAnecdotes, updateAnecdote } from "./requests";
 const App = () => {
   const queryClient = useQueryClient();
 
-  const result = useQuery({
+  const {
+    isLoading,
+    isError,
+    data: anecdotes,
+    error,
+  } = useQuery({
     queryKey: ["anecdotes"],
     queryFn: getAnecdotes,
     retry: 1,
@@ -17,8 +22,14 @@ const App = () => {
   const updateAnecdoteMutation = useMutation({
     mutationFn: updateAnecdote,
     onSuccess: (updatedAnecdote) => {
+      queryClient.invalidateQueries(["anecdotes"]);
       const anecdotes = queryClient.getQueryData(["anecdotes"]);
-      queryClient.setQueryData(["notes"], anecdotes.concat(updatedAnecdote));
+      queryClient.setQueryData(
+        ["anecdotes"],
+        anecdotes.map((anecdote) =>
+          anecdote.id === updatedAnecdote.id ? updatedAnecdote : anecdote
+        )
+      );
     },
   });
 
@@ -26,11 +37,9 @@ const App = () => {
     updateAnecdoteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 });
   };
 
-  const anecdotes = result.data;
+  if (isLoading) return <div>Loading...</div>;
 
-  if (result.isLoading) return <div>Loading...</div>;
-
-  if (result.isError) return <ErrorPage message={result.error.message} />;
+  if (isError) return <ErrorPage message={error.message} />;
 
   return (
     <div>
