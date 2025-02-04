@@ -3,12 +3,14 @@ import axios from "axios";
 
 import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
+import ErrorPage from "./components/ErrorPage";
+import { getAnecdotes } from "./requests";
 
 const App = () => {
   const result = useQuery({
     queryKey: ["anecdotes"],
-    queryFn: () =>
-      axios.get("http://localhost:3001/anecdotes").then((res) => res.data),
+    queryFn: getAnecdotes,
+    retry: 1,
   });
 
   const handleVote = (anecdote) => {
@@ -19,7 +21,7 @@ const App = () => {
 
   if (result.isLoading) return <div>Loading...</div>;
 
-  if (result.isError) return <div>{result.error.message}</div>;
+  if (result.isError) return <ErrorPage message={result.error.message} />;
 
   return (
     <div>
