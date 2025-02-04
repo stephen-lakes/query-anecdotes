@@ -9,7 +9,7 @@ const AnecdoteForm = () => {
   const addNewAnecdoteMutation = useMutation({
     mutationFn: addNewAnecdote,
     onSuccess: (newAnecdote) => {
-      const anecdotes = queryClient.getQueryData(["notes"]);
+      const anecdotes = queryClient.getQueryData(["anecdotes"]);
       queryClient.setQueryData(["anecdotes"], anecdotes.concat(newAnecdote));
     },
   });
