@@ -2,9 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import { addNewAnecdote } from "../requests";
 
 import { useQueryClient } from "@tanstack/react-query";
+import { useNotificationDispatch } from "../NotificationContext"
+
 
 const AnecdoteForm = () => {
   const queryClient = useQueryClient();
+  const dispatch = useNotificationDispatch()
 
   const addNewAnecdoteMutation = useMutation({
     mutationFn: addNewAnecdote,
@@ -19,6 +22,15 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value;
     event.target.anecdote.value = "";
     addNewAnecdoteMutation.mutate({ content, votes: 0 });
+     dispatch({
+      type: "SHOW_NOTIFICATION",
+      payload: { message: "Anecdote added successfully!", type: "success" },
+     });
+
+     setTimeout(
+      () => dispatch({ type: "HIDE_NOTIFICATION" }),
+      1000
+     );
   };
 
   return (
