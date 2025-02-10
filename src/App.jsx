@@ -35,13 +35,24 @@ const App = () => {
     },
   });
 
-  const handleVote = (anecdote) => {
-    updateAnecdoteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 });
-    dispatch({ type: "SHOW_NOTIFICATION", payload: { message: "Note voted successfully!", type: "success" } });
-    setTimeout(() => dispatch({ type: "HIDE_NOTIFICATION" }),
-      1000)
+ const handleVote = (anecdote) => {
+    
+    updateAnecdoteMutation.mutate({
+      ...anecdote,
+      votes: anecdote.votes + 1,
+    });
 
-  };
+    dispatch({
+      type: "SHOW_NOTIFICATION",
+      payload: { message: "Note voted successfully!", type: "success" },
+    });
+
+    setTimeout(
+      () => dispatch({ type: "HIDE_NOTIFICATION" }),
+      1000
+    );
+ };
+
 
   if (isLoading) return <div>Loading...</div>;
 
