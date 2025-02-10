@@ -20,18 +20,29 @@ const AnecdoteForm = () => {
   const onCreate = (event) => {
     event.preventDefault();
     const content = event.target.anecdote.value;
+    
+    if (content.length < 5) {
+      dispatch({
+        type: "SHOW_NOTIFICATION",
+        payload: { message: "Too short anecdote, must have length 5 or more", type: "error" },
+      });
+      setTimeout(() => dispatch({ type: "HIDE_NOTIFICATION" }), 1000);
+      return;
+    }
+
     event.target.anecdote.value = "";
     addNewAnecdoteMutation.mutate({ content, votes: 0 });
-     dispatch({
+
+    dispatch({
       type: "SHOW_NOTIFICATION",
       payload: { message: "Anecdote added successfully!", type: "success" },
-     });
+    });
 
-     setTimeout(
-      () => dispatch({ type: "HIDE_NOTIFICATION" }),
-      1000
-     );
+    setTimeout(() => dispatch({ type: "HIDE_NOTIFICATION" }), 1000);
   };
+
+
+  
 
   return (
     <div>
