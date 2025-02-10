@@ -19,6 +19,7 @@ const App = () => {
     queryKey: ["anecdotes"],
     queryFn: getAnecdotes,
     retry: 1,
+    cacheTime: 0
   });
 
   const updateAnecdoteMutation = useMutation({
