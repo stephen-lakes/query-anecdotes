@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { useCounterValue } from "../CounterContext";
 
 const Display = () => {
@@ -6,8 +6,8 @@ const Display = () => {
   return <div>{counter}</div>;
 };
 
-Display.propTypes = {
-  counter: PropTypes.number.isRequired,
-};
+// Display.propTypes = {
+//   counter: PropTypes.number.isRequired,
+// };
 
 export default Display;
