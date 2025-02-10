@@ -4,9 +4,11 @@ import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
 import ErrorPage from "./components/ErrorPage";
 import { getAnecdotes, updateAnecdote } from "./requests";
+import { useNotificationDispatch } from "./NotificationContext"
 
 const App = () => {
   const queryClient = useQueryClient();
+  const dispatch = useNotificationDispatch()
 
   const {
     isLoading,
@@ -35,6 +37,10 @@ const App = () => {
 
   const handleVote = (anecdote) => {
     updateAnecdoteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 });
+    dispatch({ type: "SHOW_NOTIFICATION", payload: { message: "Note voted successfully!", type: "success" } });
+    setTimeout(() => dispatch({ type: "HIDE_NOTIFICATION" }),
+      1000)
+
   };
 
   if (isLoading) return <div>Loading...</div>;
