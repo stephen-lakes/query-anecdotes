@@ -1,6 +1,6 @@
 import { useContext, useReducer } from "react";
-import { Button } from "./components/Button";
-import { Display } from "./components/Display";
+import Button from "./components/Button"
+import Display from "./components/Display";
 
 const counterReducer = (state, action) => {
   switch (action.type) {
